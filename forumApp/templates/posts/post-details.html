@@ -21,10 +21,26 @@
                     {{ post.title }}
                 </h2>
                  <h2>{{ post.content }}</h2>
-                <h4>Posted From {{ post.author|default:"Anonymous" }} on {{ post.post_date|date:"d-M-Y" }}</h4>
+                <h2>
+                    Language abbreviation: {{ post.language }}
+                </h2>
+                <h4>Posted From {{ post.author|default:"Anonymous" }} on {{ post.created_at|date:"d-M-Y" }}</h4>
             {% else %}
                 {% lorem 3 p %}
             {% endif %}
+        <div class="btn-cont">
+            <a href="{% url 'delete-post' post.id %}">
+                <button>
+                    Delete Post
+                </button>
+            </a>
+            
+            <a href="{% url 'edit-post' post.id %}">
+                <button>
+                    Edit Post
+                </button>
+            </a>
+        </div>    
         </div>
         
     </div>
