@@ -2,18 +2,7 @@
 {% load static %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum Posts</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-</head>
-<body>
+
     {% include 'nav.html' %}
     
     <div class="container">
@@ -26,7 +15,11 @@
                 <h2>
                     Language abbreviation: {{ post.language }}
                 </h2>
+                
+                <br>
+                
                 <h4>Posted From {{ post.author|default:"Anonymous" }} on {{ post.created_at|date:"d-M-Y" }}</h4>
+                
             {% else %}
                 {% lorem 3 p %}
             {% endif %}
@@ -43,6 +36,53 @@
                 </button>
             </a>
         </div>    
+        </div>
+    
+        <form action="{% url 'details' post.id %}" method="post">
+            <h2>Add comments here!!!</h2>
+            {{ form.management_form }}
+            
+            {% csrf_token %}
+            
+            <div class="input-group">
+                {% for forms in form %}
+                    <div class="form-row">
+                    
+                        {{ forms.author }}
+                    
+                        <div class="input-append">
+                            
+                            {{ forms.content }}
+                            <button class="btn btn-primary ml-2">Post</button>
+                        </div>
+                    
+                    </div>
+                {% endfor %}
+            </div>
+            
+        </form>
+    
+        <h2>Comments</h2>
+        
+        <div class="comment-section">
+            
+            {% for comment in post.comments.all %}
+                <div class="media mb-3 comment-item">
+                <img src="https://via.placeholder.com/50" class="mr-3 rounded-circle comment-avatar" alt="User avatar">
+                <div class="media-body comment-content">
+                
+                <h5 class="mt-0 comment-author">{{ comment.author }}</h5>
+                <h5 class="comment-text">{{ comment.content }}</h5>
+                
+                </div>
+                </div>
+                
+             {% empty %}
+                
+                <h5>Still no comments there!!</h5>
+                
+            {% endfor %}
+            
         </div>
         
     </div>

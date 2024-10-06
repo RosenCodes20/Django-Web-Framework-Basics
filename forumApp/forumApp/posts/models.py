@@ -39,3 +39,29 @@ class Post(models.Model):
         choices=LanguageChoices.choices,
         default=LanguageChoices.OTHER
     )
+
+
+class Comment(models.Model):
+
+    post = models.ForeignKey(
+        to=Post,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+
+    author = models.CharField(
+        max_length=30,
+        validators=[
+            check_author_name
+        ]
+    )
+
+    content = models.TextField(
+        validators=[
+            content_length_validator
+        ]
+    )
+
+    created_at = models.DateTimeField(
+        auto_now=True
+    )

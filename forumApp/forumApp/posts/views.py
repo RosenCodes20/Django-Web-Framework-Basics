@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import render, redirect
 
-from forumApp.posts.forms import BasePostForm, PostEditForm, PostDeleteForm, SearchBarForm
+from forumApp.posts.forms import BasePostForm, PostEditForm, PostDeleteForm, SearchBarForm, CommentFormSet
 from forumApp.posts.models import Post
 
 
@@ -52,8 +52,24 @@ def details(request, pk):
 
     post = Post.objects.get(id=pk)
 
+    if request.method == "GET":
+        comment_formset = CommentFormSet()
+
+    else:
+        comment_formset = CommentFormSet(request.POST)
+
+        if comment_formset.is_valid():
+            for form in comment_formset:
+                if form.is_valid():
+                    comment = form.save(commit=False)
+                    comment.post = post
+                    comment.save()
+
+            return redirect("dash")
+
     context = {
-        "post": post
+        "post": post,
+        "form": comment_formset
     }
 
     return render(request, "posts/post-details.html", context)
