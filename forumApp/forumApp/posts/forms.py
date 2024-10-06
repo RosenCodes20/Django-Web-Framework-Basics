@@ -1,4 +1,6 @@
+from crispy_forms.helper import FormHelper
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import TextInput
 
 from forumApp.posts.models import Post
@@ -9,6 +11,33 @@ class BasePostForm(forms.ModelForm):
     class Meta:
         fields = "__all__"
         model = Post
+
+        error_messages = {
+            "title": {
+                "max_length": "The title is too long it should be under 100 chars!",
+            }
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["title"].required = True
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        title = cleaned_data["title"]
+
+        author = cleaned_data.get("author")
+
+        if "Python" in title and "Ivelin" in author or "Aleksandar" in author:
+            raise ValidationError(f"{author} has nothing common with python!!!")
+
+        if len(author.split(" ")[0]) > 12:
+            raise ValidationError("Author length should be not more than 12 symbols!!")
+
+        return cleaned_data
 
 
 class PostEditForm(BasePostForm):

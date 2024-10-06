@@ -8,17 +8,7 @@ from forumApp.posts.models import Post
 
 def index(request):
     context = {
-        "users": [
-            "ivan",
-            "pesho",
-            "gosho",
-            "rosen"
-        ],
-        "admin": {
-            "name": "Rosen",
-            "age": 16,
-            "color": "brown"
-        }
+        "today_date": datetime.today
     }
 
     return render(request, "base.html", context)
@@ -100,6 +90,8 @@ def delete_post(request, pk):
         form = PostDeleteForm(request.POST, instance=post)
 
         post.delete()
+
+        return redirect("dash")
 
     context = {
         "post": post,
