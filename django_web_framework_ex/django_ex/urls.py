@@ -21,8 +21,8 @@ urlpatterns = [
     ])),
 
     path("profile/", include([
-        path("edit-profile/<int:pk>", views.edit_profile, name="edit-profile"),
-        path("profile-details/<int:pk>", views.profile_details, name="profile-details")
+        path("edit-profile", views.edit_profile, name="edit-profile"),
+        path("profile-details", views.profile_details, name="profile-details")
     ])),
 
     path("teams/", include([
