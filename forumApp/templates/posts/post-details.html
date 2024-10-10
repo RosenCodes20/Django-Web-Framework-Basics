@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% include 'nav.html' %}
+    
+    <div class="container">
+        <div class="post">
+            {% if post %}
+                <h2>
+                    {{ post.title }}
+                </h2>
+                 <h2>{{ post.content }}</h2>
+                <h2>
+                    Language abbreviation: {{ post.language }}
+                </h2>
+                
+                <br>
+                
+                <h4>Posted From {{ post.author|default:"Anonymous" }} on {{ post.created_at|date:"d-M-Y" }}</h4>
+                
+            {% else %}
+                {% lorem 3 p %}
+            {% endif %}
+        <div class="btn-cont">
+            <a href="{% url 'delete-post' post.id %}">
+                <button>
+                    Delete Post
+                </button>
+            </a>
+            
+            <a href="{% url 'edit-post' post.id %}">
+                <button>
+                    Edit Post
+                </button>
+            </a>
+        </div>    
+        </div>
+    
+        <form action="{% url 'details' post.id %}" method="post">
+            <h2>Add comments here!!!</h2>
+            {{ form.management_form }}
+            
+            {% csrf_token %}
+            
+            <div class="input-group">
+                {% for forms in form %}
+                    <div class="form-row">
+                    
+                        {{ forms.author }}
+                    
+                        <div class="input-append">
+                            
+                            {{ forms.content }}
+                            <button class="btn btn-primary ml-2">Post</button>
+                        </div>
+                    
+                    </div>
+                {% endfor %}
+            </div>
+            
+        </form>
+    
+        <h2>Comments</h2>
+        
+        <div class="comment-section">
+            
+            {% for comment in post.comments.all %}
+                <div class="media mb-3 comment-item">
+                <img src="https://via.placeholder.com/50" class="mr-3 rounded-circle comment-avatar" alt="User avatar">
+                <div class="media-body comment-content">
+                
+                <h5 class="mt-0 comment-author">{{ comment.author }}</h5>
+                <h5 class="comment-text">{{ comment.content }}</h5>
+                
+                </div>
+                </div>
+                
+             {% empty %}
+                
+                <h5>Still no comments there!!</h5>
+                
+            {% endfor %}
+            
+        </div>
+        
+    </div>
+
+{% endblock %}
