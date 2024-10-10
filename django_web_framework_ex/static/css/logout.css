@@ -1,0 +1,57 @@
+
+
+.logout-nav-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10rem;
+}
+
+.logout-nav-menu h1 {
+    color: white;
+    font-size: 3rem;
+}
+
+.logout-nav-menu .btn-group {
+    display: flex;
+    gap: 20px;
+}
+
+.logout-nav-menu .btn-group button {
+    border-radius: 14px;
+    color: white;
+    padding: 8px 13px;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.logout-nav-menu .btn-group .yes-btn {
+    border: 2px solid #14A021;
+    background-color: #14A021;
+}
+
+.logout-nav-menu .btn-group .no-btn {
+    border: 2px solid #E91705;
+    background-color: #E91705;
+}
+
+.logout-nav-menu .btn-group button:hover {
+    cursor: pointer;
+    border-radius: 14px;
+}
+
+.logout-nav-menu .btn-group .yes-btn:hover{
+    border: 2px solid green;
+    background-color: lightgreen;
+}
+
+.logout-nav-menu .btn-group .no-btn:hover{
+    border: 2px solid red;
+    background-color: lightcoral;
+}
+
+.logout-nav-menu .btn-group i {
+    padding-right: 5px;
+}

@@ -1,0 +1,37 @@
+{% extends 'common/base.html' %}
+{% block content %}
+
+<div class="player-form">
+
+  <h2>Edit Player</h2>
+  <form>
+    <div class="form-group">
+      <label for="name">Player Name:</label>
+      <input type="text" value="Eden Hazard" name="name" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Player Age:</label>
+      <input type="number" value="32" name="age" id="age" required>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Player Price:</label>
+      <input type="number" value=200000 name="price" id="price" required>
+    </div>
+
+    <div class="form-group">
+      <label for="club">Player Club:</label>
+      <select name="club" id="club">
+        <option>Manchester United</option>
+        <option>Chelsea</option>
+        <option>Liverpool</option>
+      </select>
+    </div>
+
+    <a href="#"><button class="edit-btn"><i class="fa-solid fa-pencil"></i>Edit Player</button></a>
+  </form>
+
+</div>
+
+{% endblock %}
