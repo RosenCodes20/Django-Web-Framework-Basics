@@ -10,8 +10,11 @@
         <p>Price: {{ player.price }}$</p>
         <a href="{% url 'player-details' player.pk %}" class="btn-groups"><button><i class="fa-solid fa-circle-info"></i>Details</button></a>
       </div>
+      {% empty %}    
+          <h1>No players here! :(</h1>    
     </div>
-        
+    
+    
     {% endfor %}
 
 {% endblock %}

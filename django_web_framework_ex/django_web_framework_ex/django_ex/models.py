@@ -14,7 +14,7 @@ class League(models.Model):
     )
 
     country = models.CharField(
-        max_length=200
+        max_length=200,
     )
 
     def __str__(self):

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
-from django_web_framework_ex.django_ex.forms import BaseLeagueForm, BaseTeamForm, BasePlayerForm
+from django_web_framework_ex.django_ex.forms import BaseLeagueForm, BaseTeamForm, BasePlayerForm, PlayerEditForm, \
+    PlayerDeleteForm
 from django_web_framework_ex.django_ex.models import Player
 
 
@@ -69,17 +70,56 @@ def create_player(request):
 
 def delete_player(request, pk):
 
-    return render(request, "players/delete-player.html")
+    player = Player.objects.get(id=pk)
+
+    if request.method == "GET":
+        form = PlayerDeleteForm(instance=player)
+
+    else:
+        form = PlayerDeleteForm(request.POST, instance=player)
+
+        player.delete()
+
+
+    context = {
+        "player": player,
+        "form": form
+    }
+
+    return render(request, "players/delete-player.html", context)
 
 
 def edit_player(request, pk):
 
-    return render(request, "players/edit-player.html")
+    player = Player.objects.get(id=pk)
+
+    if request.method == "GET":
+        form = PlayerEditForm(instance=player)
+
+    else:
+        form = PlayerEditForm(request.POST, instance=player)
+
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+
+    context = {
+        "player": player,
+        "form": form
+    }
+
+    return render(request, "players/edit-player.html", context)
 
 
 def player_details(request, pk):
 
-    return render(request, "players/player_details.html")
+    player = Player.objects.get(id=pk)
+
+    context = {
+        "player": player
+    }
+
+    return render(request, "players/player_details.html", context)
 
 
 def edit_profile(request):

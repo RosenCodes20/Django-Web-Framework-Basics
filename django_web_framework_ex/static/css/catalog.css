@@ -52,5 +52,10 @@
     padding-right: 5px;
 }
 
+.players-containers h1 {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    background: -webkit-linear-gradient(right, lightgray, black, lightgray, black);
+}
 
 
