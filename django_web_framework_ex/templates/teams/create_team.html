@@ -2,23 +2,14 @@
 {% block content %}
 
 <div class="player-form">
+    <form action="{% url 'create-team' %}" method="post">
   <h2>Create Team</h2>
-    <form>
-      <div class="form-group">
-        <label for="team_name">Team Name:</label>
-        <input type="text" name="team_name" id="team_name" required>
-      </div>
-
-      <div class="form-group">
-        <label for="team_league">Team League:</label>
-        <select name="team_league" id="team_league">
-          <option>Premier League</option>
-          <option>La League</option>
-          <option>Eredivision</option>
-        </select>
-      </div>
-
-      <a href="#"><button><i class="fa-solid fa-check"></i>Create Team</button></a>
+            
+      {{ form }}
+      {% csrf_token %}
+        
+      <button><i class="fa-solid fa-check"></i>Create Team</button>
+        
     </form>
 </div>
 

@@ -1,14 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from django_web_framework_ex.django_ex.forms import BaseLeagueForm, BaseTeamForm, BasePlayerForm
+from django_web_framework_ex.django_ex.models import Player
 
 
 def index(request):
 
-    return render(request, "common/index.html")
+    players = Player.objects.all()
+
+    context = {
+        "players": players
+    }
+
+    return render(request, "common/index.html", context)
 
 
 def create_league(request):
 
-    return render(request, "leagues/create-league.html")
+    if request.method == "GET":
+        form = BaseLeagueForm()
+
+    else:
+        form = BaseLeagueForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "leagues/create-league.html", context)
 
 
 def login(request):
@@ -28,7 +51,20 @@ def register(request):
 
 def create_player(request):
 
-    return render(request, "players/create-player.html")
+    form = BasePlayerForm(request.POST or None)
+
+    if request.method == "POST":
+
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "players/create-player.html", context)
 
 
 def delete_player(request, pk):
@@ -57,4 +93,19 @@ def profile_details(request):
 
 def create_team(request):
 
-    return render(request, "teams/create_team.html")
+    if request.method == "GET":
+        form = BaseTeamForm()
+
+    else:
+        form = BaseTeamForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "teams/create_team.html", context)
