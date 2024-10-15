@@ -6,6 +6,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("car/", include([
         path("catalogue/", views.catalogue, name="catalogue"),
+        path("create/", views.create_car, name="create-car"),
         path("<int:pk>/details/", views.car_details, name="car-details"),
         path("<int:pk>/edit/", views.edit_car, name="edit-car"),
         path("<int:pk>/delete/", views.delete_car, name="delete-car"),

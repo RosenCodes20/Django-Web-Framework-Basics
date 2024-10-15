@@ -1,9 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from exam_preparation_1.world_of_speed.forms import ProfileBaseForm, CreateCarBaseForm
+from exam_preparation_1.world_of_speed.models import Profile
 
 
 def index(request):
 
-    return render(request, "index.html")
+    profiles = Profile.objects.all()
+
+    context = {
+        "profiles": profiles
+    }
+
+    return render(request, "index.html", context)
 
 
 def catalogue(request):
@@ -13,7 +22,22 @@ def catalogue(request):
 
 def create_car(request):
 
-    return render(request, "car-create.html")
+    form = CreateCarBaseForm(request.POST or None)
+    car_owner = Profile.objects.all().first()
+    if request.method == "POST":
+        if form.is_valid():
+            if form.cleaned_data:
+                car = form.save(commit=False)
+                car.owner = car_owner
+                car.save()
+                return redirect("catalogue")
+
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "car-create.html", context)
 
 
 def delete_car(request, pk):
@@ -33,7 +57,20 @@ def edit_car(request, pk):
 
 def create_profile(request):
 
-    return render(request, "profile-create.html")
+    form = ProfileBaseForm(request.POST or None)
+
+    if request.method == "POST":
+
+        if form.is_valid():
+            form.save()
+            return redirect("catalogue")
+
+
+    context = {
+        "form": form
+    }
+
+    return render(request, "profile-create.html", context)
 
 
 def delete_profile(request):
