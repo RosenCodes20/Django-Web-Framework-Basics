@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <header>
+        <!-- Navigation Bar -->
+        <h1><a class="index-navigation" href="#"
+          ><span>World of Speed</span></a
+        ></h1>
+        <nav>
+            <a href="#">Catalogue</a>
+            <a href="#">Create Car</a>
+            <a href="#">Profile</a>
+        </nav>
+    </header>
+
+  <section id="create-page" class="auth">
+
+      <div class="container">
+        <h1>Are you sure you want to delete your profile?</h1>
+          <!-- Delete Profile Form -->
+        <form id='delete'>
+
+        <!-- Confirm Button -->
+        <input class="btn submit" type="submit" value="Yes">
+
+        </form>
+      </div>
+    <!-- End Delete Profile Form -->
+  </section>
+  <!-- Footer -->
+{% endblock %}
