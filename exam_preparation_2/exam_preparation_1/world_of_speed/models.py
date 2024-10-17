@@ -85,6 +85,7 @@ class Car(models.Model):
         blank=False,
         null=False,
         # TODO look again in the zadacha
+        # TODO: DONE
     )
 
     price = models.FloatField(

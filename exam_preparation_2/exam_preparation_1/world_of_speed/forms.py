@@ -25,3 +25,24 @@ class CreateCarBaseForm(forms.ModelForm):
                 "placeholder": "https://..."
             })
         }
+
+
+class EditCarForm(CreateCarBaseForm):
+    pass
+
+
+class DeleteCarForm(CreateCarBaseForm):
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].disabled = True
+
+
+class EditProfileForm(ProfileBaseForm):
+
+    class Meta:
+        fields = "__all__"
+        model = Profile
