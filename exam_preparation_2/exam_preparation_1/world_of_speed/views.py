@@ -1,55 +1,96 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
 from exam_preparation_1.world_of_speed.forms import ProfileBaseForm, CreateCarBaseForm, EditCarForm, DeleteCarForm, \
     EditProfileForm
 from exam_preparation_1.world_of_speed.models import Profile, Car
 
 
-def index(request):
+class Index(ListView):
+    model = Profile
+    template_name = "index.html"
 
-    profiles = Profile.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    context = {
-        "profiles": profiles
-    }
+        context["profiles"] = Profile.objects.all()
 
-    return render(request, "index.html", context)
+        return context
 
-
-def catalogue(request):
-
-    cars = Car.objects.all()
-    profiles = Profile.objects.all()
-
-
-    context = {
-        "cars": cars,
-        "profiles": profiles
-    }
-
-    return render(request, "catalogue.html", context)
+# def index(request):
+#
+#     profiles = Profile.objects.all()
+#
+#     context = {
+#         "profiles": profiles
+#     }
+#
+#     return render(request, "index.html", context)
 
 
-def create_car(request):
-    profiles = Profile.objects.all()
+class Catalogue(ListView):
+    template_name = "catalogue.html"
+    model = Car
 
-    form = CreateCarBaseForm(request.POST or None)
-    car_owner = Profile.objects.all().last()
-    if request.method == "POST":
-        if form.is_valid():
-            if form.cleaned_data:
-                car = form.save(commit=False)
-                car.owner = car_owner
-                car.save()
-                return redirect("catalogue")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["cars"] = Car.objects.all()
+        context["profiles"] = Profile.objects.all()
+
+        return context
+
+# def catalogue(request):
+#
+#     cars = Car.objects.all()
+#     profiles = Profile.objects.all()
+#
+#
+#     context = {
+#         "cars": cars,
+#         "profiles": profiles
+#     }
+#
+#     return render(request, "catalogue.html", context)
 
 
-    context = {
-        "form": form,
-        "profiles": profiles
-    }
+class CreateCar(CreateView):
+    model = Car
+    template_name = "car-create.html"
+    form_class = CreateCarBaseForm
+    success_url = reverse_lazy("catalogue")
 
-    return render(request, "car-create.html", context)
+    def form_valid(self, form):
+        car_owner = Profile.objects.last()
+
+        car = form.save(commit=False)
+        car.owner = car_owner
+        car.save()
+
+        return super().form_valid(form)
+
+
+# def create_car(request):
+#     profiles = Profile.objects.all()
+#
+#     form = CreateCarBaseForm(request.POST or None)
+#     car_owner = Profile.objects.all().last()
+#     if request.method == "POST":
+#         if form.is_valid():
+#             if form.cleaned_data:
+#                 car = form.save(commit=False)
+#                 car.owner = car_owner
+#                 car.save()
+#                 return redirect("catalogue")
+#
+#
+#     context = {
+#         "form": form,
+#         "profiles": profiles
+#     }
+#
+#     return render(request, "car-create.html", context)
 
 
 def delete_car(request, pk):
@@ -74,17 +115,29 @@ def delete_car(request, pk):
     return render(request, "car-delete.html", context)
 
 
-def car_details(request, pk):
+class CarDetails(DetailView):
+    model = Car
+    template_name = "car-details.html"
 
-    car = Car.objects.get(id=pk)
-    profiles = Profile.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    context = {
-        "car": car,
-        "profiles": profiles
-    }
+        context["car"] = Car.objects.get(id=context["car"].pk)
+        context["profiles"] = Profile.objects.all()
 
-    return render(request, "car-details.html", context)
+        return context
+
+# def car_details(request, pk):
+#
+#     car = Car.objects.get(id=pk)
+#     profiles = Profile.objects.all()
+#
+#     context = {
+#         "car": car,
+#         "profiles": profiles
+#     }
+#
+#     return render(request, "car-details.html", context)
 
 
 def edit_car(request, pk):
@@ -113,24 +166,34 @@ def edit_car(request, pk):
     return render(request, "car-edit.html", context)
 
 
-def create_profile(request):
-    profiles = Profile.objects.all()
+class CreateProfile(CreateView):
 
-    form = ProfileBaseForm(request.POST or None)
+    model = Profile
+    form_class = ProfileBaseForm
+    template_name = "profile-create.html"
 
-    if request.method == "POST":
-
-        if form.is_valid():
-            form.save()
-            return redirect("catalogue")
+    def get_success_url(self):
+        return reverse_lazy("catalogue")
 
 
-    context = {
-        "form": form,
-        "profiles": profiles
-    }
-
-    return render(request, "profile-create.html", context)
+# def create_profile(request):
+#     profiles = Profile.objects.all()
+#
+#     form = ProfileBaseForm(request.POST or None)
+#
+#     if request.method == "POST":
+#
+#         if form.is_valid():
+#             form.save()
+#             return redirect("catalogue")
+#
+#
+#     context = {
+#         "form": form,
+#         "profiles": profiles
+#     }
+#
+#     return render(request, "profile-create.html", context)
 
 
 def delete_profile(request):
