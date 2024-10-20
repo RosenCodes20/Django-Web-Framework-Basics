@@ -1,27 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/style/style.css" />
-    <title>TastyRecipesApp</title>
-  </head>
-
-  <body>
-    <div id="box">
-      <header>
-        <!-- Navigation Bar -->
-        <h1><a class="index-navigation" href="#">Tasty Recipes</a></h1>
-        <nav>
-          <!-- if the user has not created a profile -->
-          <a href="#">Create Profile</a>
-
-          <!-- if the user has created a profile -->
-          <a href="#">Catalogue</a>
-          <a href="#">Create Recipe</a>
-          <a href="#">Profile</a>
-        </nav>
-      </header>
+{% extends "base.html" %}
+{% block content %}
 
       <!-- profile details section -->
       <section id="recipe-details">
@@ -31,38 +9,49 @@
             <!-- default profile image -->
             <!-- if the user is not a chef - a default image - no_chef_img.png -->
             <!-- if the user is a chef - a default image - chef_img.png -->
-
+            
+          {% if profile.chef %}
             <img
               class="recipe-img"
               src="/static/images/chef_img.png"
               alt="profile-image"
             />
-
+          
+          {% else %}
+            <img
+              class="recipe-img"
+              src="/static/images/no_chef_img.png"
+              alt="profile-image"
+            />
+          
+          {% endif %}
             <!-- profile full name -->
-            <h1>Fname Lname</h1>
+            <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
 
             <!-- profile nickname -->
-            <p class="description">Nickname: testuser</p>
+            <p class="description">Nickname: {{ profile.nickname }}</p>
 
             <!-- profile bio -->
             <!-- if no profile bio - display 'N/A' -->
-
+            
+            {% if not profile.bio %}  
             <p class="description">Bio: N/A</p>
-
+            
+            {% else %}  
+                
+            <p class="description">Bio: {{ profile.bio }}</p>
+            
+            {% endif %}  
             <!-- total number of published recipes -->
-            <p class="description">Published recipes: 3</p>
+            <p class="description">Published recipes: {{ profile.recipe.all|length }}</p>
 
             <!-- Edit/Delete buttons -->
             <div class="buttons">
-              <a href="#" class="edit-button">Edit</a>
-              <a href="#" class="delete-button">Delete</a>
+              <a href="{% url 'edit-profile' %}" class="edit-button">Edit</a>
+              <a href="{% url 'delete-profile' %}" class="delete-button">Delete</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- footer -->
-      <footer>&copy;SoftUni Team 2024. All rights reserved.</footer>
-    </div>
-  </body>
-</html>
+{% endblock %}
