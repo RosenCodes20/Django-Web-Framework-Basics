@@ -1,3 +1,5 @@
+{% load profiles_template_tag %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,7 +15,7 @@
         <!-- Navigation Bar -->
         <h1><a class="index-navigation" href="{% url 'index' %}">Tasty Recipes</a></h1>
         <nav>
-          <!-- if the user has not created a profile -->
+          {% profiles_template_tag as profiles %}
           {% if not profiles %}  
           <a href="{% url 'create-profile' %}">Create Profile</a>
           

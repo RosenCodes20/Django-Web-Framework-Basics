@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "exam_preparation_3.tasty_recipes"
+    "exam_preparation_3.tasty_recipes",
+    'exam_preparation_3.profiles.apps.ProfilesConfig'
 ]
 
 MIDDLEWARE = [

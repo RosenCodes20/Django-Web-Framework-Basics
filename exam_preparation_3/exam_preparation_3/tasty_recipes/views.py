@@ -6,22 +6,14 @@ from exam_preparation_3.tasty_recipes.models import Profile, Recipe
 
 
 def index(request):
-    profiles = Profile.objects.all()
 
-    context = {
-        "profiles": profiles
-    }
-
-    return render(request, "home-page.html", context)
+    return render(request, "home-page.html")
 
 
 def catalogue(request):
-    profiles = Profile.objects.all()
-
     recipes = Recipe.objects.all()
 
     context = {
-        "profiles": profiles,
         "recipes": recipes
     }
 
@@ -29,8 +21,6 @@ def catalogue(request):
 
 
 def create_profile(request):
-    profiles = Profile.objects.all()
-
     form = BaseProfileForm(request.POST or None)
 
     if request.method == "POST":
@@ -41,14 +31,12 @@ def create_profile(request):
 
     context = {
         "form": form,
-        "profiles": profiles
     }
 
     return render(request, "create-profile.html", context)
 
 
 def create_recipe(request):
-    profiles = Profile.objects.all()
     recipe_author = profiles.last()
     form = BaseRecipeForm(request.POST or None)
 
@@ -62,7 +50,6 @@ def create_recipe(request):
             return redirect("catalogue")
 
     context = {
-        "profiles": profiles,
         "form": form
     }
 
@@ -70,8 +57,6 @@ def create_recipe(request):
 
 
 def delete_profile(request):
-    profiles = Profile.objects.all()
-
     profile = Profile.objects.last()
 
     if request.method == "POST":
@@ -80,7 +65,6 @@ def delete_profile(request):
 
 
     context = {
-        "profiles": profiles,
         "profile": profile
     }
 
@@ -88,8 +72,6 @@ def delete_profile(request):
 
 
 def delete_recipe(request, pk):
-    profiles = Profile.objects.all()
-
     recipe = Recipe.objects.get(id=pk)
 
     form = DeleteRecipeForm(request.POST or None, instance=recipe)
@@ -99,7 +81,6 @@ def delete_recipe(request, pk):
         return redirect("catalogue")
 
     context = {
-        "profiles": profiles,
         "form": form,
         "recipe": recipe
     }
@@ -108,12 +89,9 @@ def delete_recipe(request, pk):
 
 
 def profile_details(request):
-    profiles = Profile.objects.all()
-
     profile = Profile.objects.last()
 
     context = {
-        "profiles": profiles,
         "profile": profile
     }
 
@@ -121,14 +99,11 @@ def profile_details(request):
 
 
 def recipe_details(request, pk):
-    profiles = Profile.objects.all()
-
     recipe = Recipe.objects.get(id=pk)
 
     ingredients = recipe.ingredients.split(", ")
 
     context = {
-        "profiles": profiles,
         "recipe": recipe,
         "ingredients": ingredients
     }
@@ -137,8 +112,6 @@ def recipe_details(request, pk):
 
 
 def edit_profile(request):
-    profiles = Profile.objects.all()
-
     profile = Profile.objects.last()
 
     form = EditProfileBaseForm(request.POST or None, instance=profile)
@@ -149,7 +122,6 @@ def edit_profile(request):
             return redirect("profile-details")
 
     context = {
-        "profiles": profiles,
         "profile": profile,
         "form": form
     }
@@ -158,8 +130,6 @@ def edit_profile(request):
 
 
 def edit_recipe(request, pk):
-    profiles = Profile.objects.all()
-
     recipe = Recipe.objects.get(id=pk)
 
     form = EditRecipeForm(request.POST or None, instance=recipe)
@@ -171,7 +141,6 @@ def edit_recipe(request, pk):
             return redirect("catalogue")
 
     context = {
-        "profiles": profiles,
         "recipe": recipe,
         "form": form
     }
