@@ -1,0 +1,61 @@
+
+.players-containers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.player-cards {
+    margin-top: 5px;
+    background-color: #234465;
+    border: 1px solid #234465;
+    border-radius: 10px;
+    width: 45%;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: shine 3s linear infinite;
+    overflow: hidden;
+    background: linear-gradient(to right, #fff 20%, #fff 40%, #ECD08C 50%, #ECD08C 55%, #fff 70%, #fff 100%);
+}
+
+.player-cards p {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+.player-cards img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.player-cards .btn-groups button {
+    border: 2px solid black;
+    border-radius: 14px;
+    background-color: #333333;
+    color: white;
+    padding: 8px 13px;
+    font-size: 16px;
+}
+
+.player-cards .btn-groups button:hover {
+    cursor: pointer;
+    background-color: green;
+    border: 2px solid lightgreen;
+    border-radius: 14px;
+}
+
+.player-cards .btn-groups i {
+    padding-right: 5px;
+}
+
+.players-containers h1 {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    color: -webkit-linear-gradient(right, lightgray, black, lightgray, black);
+}
+
+

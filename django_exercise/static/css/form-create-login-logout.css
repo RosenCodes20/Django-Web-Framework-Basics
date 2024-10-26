@@ -1,0 +1,116 @@
+
+
+form {
+    border: 1px solid black;
+    text-align: left;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    margin: 50px auto;
+    border-radius: 5px;
+    box-shadow: 5px 10px;
+}
+
+form h2 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 41px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    background: -webkit-linear-gradient(right, lightgray, black, lightgray, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+form label {
+    font-size: 16px;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    display: block;
+}
+
+form input, select{
+    width: 100%;
+    display: inline-block;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+    border: 2px solid green;
+    border-radius: 14px;
+    background-color: green;
+    color: white;
+    padding: 8px 13px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+form button:hover {
+    cursor: pointer;
+    background-color: lightgreen;
+    border: 2px solid lightgreen;
+    border-radius: 14px;
+}
+
+form button i {
+    padding-right: 5px;
+}
+
+form .edit-btn, .player-form .edit-profile-btn {
+    border: 2px solid #3A8ABE;
+    background-color: #3A8ABE;
+}
+
+form .edit-btn:hover, .player-form .edit-profile-btn:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    border-radius: 14px;
+    background-color: #3A8ABE;
+    border: 2px solid #3A8ABE;
+}
+
+form .delete-btn {
+    border: 2px solid #DE4B39;
+    background-color: #DE4B39;
+}
+
+form .delete-btn:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    border-radius: 14px;
+    border: 2px solid #DE4B39;
+    background-color: #DE4B39;
+}
+
+form .login-btn {
+    border: 2px solid #5F69FB;
+    background-color: #5F69FB;
+}
+
+form .login-btn:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    border-radius: 14px;
+    background-color: #5F69FB;
+    border: 2px solid #5F69FB;
+}
+
+form .register-btn {
+    border: 2px solid #268A1A;
+    background-color: #268A1A;
+}
+
+form .register-btn:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    border-radius: 14px;
+    background-color: #268A1A;
+    border: 2px solid #268A1A;
+}
+

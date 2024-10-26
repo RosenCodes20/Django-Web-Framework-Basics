@@ -1,0 +1,22 @@
+{% extends 'common/base.html' %}
+{% block content %}
+
+<div class="player-form">
+  <h2>Login</h2>
+  <form>
+    <div class="form-group">
+      <label for="league_name">Username:</label>
+      <input type="text" name="league_name" id="league_name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="country">Password:</label>
+      <input type="password" name="country" id="country" required>
+    </div>
+
+    <a href="#"><button class="login-btn"><i class="fa-solid fa-right-to-bracket"></i>Login</button></a>
+  </form>
+</div>
+
+
+{% endblock %}
