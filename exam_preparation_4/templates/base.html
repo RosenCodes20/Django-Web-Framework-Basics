@@ -1,0 +1,47 @@
+
+{% load static %}
+{% load get_profiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Music App</title>
+    <!-- Static Load -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}" />
+  </head>
+
+  <body>
+    <div id="box">
+    
+      <header>
+        <nav>
+          <img src="{% static "images/headphones.png" %}" alt="headphones" />
+            
+          {% get_profiles as profiles %}  
+          
+        
+          <a href="{% url 'index' %}">Home</a>
+          
+          <ul></ul>  
+            
+          {% if profiles %}  
+          <ul>
+            <li><a href="{% url 'add-album' %}">Create Album</a></li>
+            <li><a href="{% url 'profile-details' %}">Profile</a></li>
+          </ul>
+          {% endif %}  
+        </nav>
+          
+      </header>
+                
+        {% block content %}
+        	
+        {% endblock %}
+            
+      <footer>
+        <div>&copy;SoftUni Team 2024. All rights reserved.</div>
+      </footer>
+     
+    </div>
+  </body>
+</html>
