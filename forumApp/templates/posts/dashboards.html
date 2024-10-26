@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+        <form class="search-bar" method="get">
+
+            {{ form }}
+            {% csrf_token %}
+            
+            <button>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="transparent" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ai ai-Search"><path d="M21 21l-4.486-4.494M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0z"/></svg>
+            </button>
+            
+        </form>
+    
+    {% include "nav.html" %}
+        
+
+    <div class="container">
+        <div class="posts">
+        {% for post in posts %}
+            <div class="post">
+                <h2>Post Title: {{ post.title|capfirst|truncatechars:10 }}</h2>
+                
+                {% if post.content %}
+                    <h2>{{ post.content }}</h2>
+                
+                {% else %}
+                    <h2>{% lorem 3 p %}</h2>
+                    <h2>{{ post.index }}</h2>
+                {% endif %}
+                
+                <a href="{% url 'details' post.id %}" class="btn-link">
+                <button>
+                    Post Details
+                </button>
+                </a>    
+            
+            </div>
+            
+            <div class="post-meta">
+
+                <span>Posted From {{ post.author|default:"Anonymous" }} on {{ post.created_at|date:"d-M-Y" }}</span>
+            </div>
+        
+        {% empty %}
+            <div class="position-relative">
+                
+             <div class="position-absolute top-0 start-50 translate-middle">
+                 <h2>No posts here!!</h2>
+             </div>
+                                
+            
+            </div>
+        {% endfor %}
+        </div>    
+    </div>
+
+{% endblock %}
