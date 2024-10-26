@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>
+        These are the todos with length of {{ todos|length }} todos!
+    </h1>
+    
+        <form method="get">
+
+        <input type="text" id="todo_filter" name="todo_filter" placeholder="Enter todo name...">
+        <button id="submit" type="submit">Submit</button>
+
+    </form>
+
+    
+    <ul>
+    {% for todo in todos %}
+            <li>{{ todo.name }}</li>
+    {% empty %}
+            <li>No todos here!!!</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
