@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, FormView, ListView
+from django.views.generic import TemplateView, CreateView, FormView, ListView, DetailView
 
 from forumApp.posts.forms import BasePostForm, PostEditForm, PostDeleteForm, SearchBarForm, CommentFormSet
 from forumApp.posts.models import Post
@@ -19,23 +19,39 @@ class Index(TemplateView):
     template_name = "base.html"
 
 
+class Dashboard(ListView, FormView):
+    model = Post
+    paginate_by = 2
+    form_class = SearchBarForm
+    success_url = reverse_lazy("dash")
+    context_object_name = "posts"
+    template_name = "posts/dashboards.html"
 
-def dashboard(request):
-    form = SearchBarForm(request.GET)
-    posts = Post.objects.all()
+    def get_queryset(self):
+        queryset = self.model.objects.all()
 
-    if request.method == "GET":
-        if form.is_valid():
-            cleaned_post = form.cleaned_data["post"]
-            posts = Post.objects.filter(title__icontains=cleaned_post)
+        if "query" in self.request.GET:
+            query = self.request.GET.get("query")
+            queryset = self.queryset.filter(title__icontains=query)
 
+        return queryset
 
-    context = {
-        "posts": posts,
-        "form": form
-    }
-
-    return render(request, "posts/dashboards.html", context)
+# def dashboard(request):
+#     form = SearchBarForm(request.GET)
+#     posts = Post.objects.all()
+#
+#     if request.method == "GET":
+#         if form.is_valid():
+#             cleaned_post = form.cleaned_data["post"]
+#             posts = Post.objects.filter(title__icontains=cleaned_post)
+#
+#
+#     context = {
+#         "posts": posts,
+#         "form": form
+#     }
+#
+#     return render(request, "posts/dashboards.html", context)
 
 
 # def create_post(request):
