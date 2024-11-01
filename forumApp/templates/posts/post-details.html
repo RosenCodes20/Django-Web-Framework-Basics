@@ -68,7 +68,7 @@
             
             {% for comment in post.comments.all %}
                 <div class="media mb-3 comment-item">
-                <img src="https://via.placeholder.com/50" class="mr-3 rounded-circle comment-avatar" alt="User avatar">
+                <img src="{% static '50.png' %}" class="mr-3 rounded-circle comment-avatar" alt="User avatar">
                 <div class="media-body comment-content">
                 
                 <h5 class="mt-0 comment-author">{{ comment.author }}</h5>

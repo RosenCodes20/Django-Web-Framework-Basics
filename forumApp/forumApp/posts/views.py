@@ -32,7 +32,7 @@ class Dashboard(ListView, FormView):
 
         if "query" in self.request.GET:
             query = self.request.GET.get("query")
-            queryset = self.queryset.filter(title__icontains=query)
+            queryset = queryset.filter(title__icontains=query)
 
         return queryset
 
@@ -94,7 +94,7 @@ def details(request, pk):
                     comment.post = post
                     comment.save()
 
-            return redirect("dash")
+            return redirect("details", pk=post.id)
 
     context = {
         "post": post,
