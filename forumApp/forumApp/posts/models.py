@@ -31,6 +31,10 @@ class Post(models.Model):
         ]
     )
 
+    approved = models.BooleanField(
+        default=False
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )
@@ -40,6 +44,10 @@ class Post(models.Model):
         default=LanguageChoices.OTHER
     )
 
+    class Meta:
+        permissions = [
+            ("can_approve_posts", "Can approve posts")
+        ]
 
 class Comment(models.Model):
 

@@ -30,11 +30,17 @@ class Dashboard(ListView, FormView):
     def get_queryset(self):
         queryset = self.model.objects.all()
 
+        if not self.request.user.has_perm("posts.can_approve_posts"):
+            queryset = queryset.filter(approved=True)
+
         if "query" in self.request.GET:
             query = self.request.GET.get("query")
             queryset = queryset.filter(title__icontains=query)
 
         return queryset
+
+
+#TODO: SHOULD FINISH WITH APPROVED BY GIVING THE APPROVED SIGN SO REDACTOR CAN APPROVE IT!!!!!!!!!!!!!!
 
 # def dashboard(request):
 #     form = SearchBarForm(request.GET)
