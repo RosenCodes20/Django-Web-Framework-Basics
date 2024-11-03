@@ -21,43 +21,43 @@ class Index(TemplateView):
 
 class Dashboard(ListView, FormView):
     model = Post
-    paginate_by = 2
     form_class = SearchBarForm
     success_url = reverse_lazy("dash")
     context_object_name = "posts"
     template_name = "posts/dashboards.html"
+    paginate_by = 2
 
     def get_queryset(self):
+
         queryset = self.model.objects.all()
 
         if not self.request.user.has_perm("posts.can_approve_posts"):
-            queryset = queryset.filter(approved=True)
+            queryset =queryset.filter(approved=True)
 
-        if "query" in self.request.GET:
-            query = self.request.GET.get("query")
-            queryset = queryset.filter(title__icontains=query)
+        if "post" in self.request.GET:
+            post = self.request.GET.get("post")
+            queryset = queryset.filter(title__icontains=post)
 
         return queryset
 
 
-#TODO: SHOULD FINISH WITH APPROVED BY GIVING THE APPROVED SIGN SO REDACTOR CAN APPROVE IT!!!!!!!!!!!!!!
+# TODO: SHOULD FINISH WITH APPROVED BY GIVING THE APPROVED SIGN SO REDACTOR CAN APPROVE IT!!!!!!!!!!!!!!
 
-# def dashboard(request):
-#     form = SearchBarForm(request.GET)
-#     posts = Post.objects.all()
-#
-#     if request.method == "GET":
-#         if form.is_valid():
-#             cleaned_post = form.cleaned_data["post"]
-#             posts = Post.objects.filter(title__icontains=cleaned_post)
-#
-#
-#     context = {
-#         "posts": posts,
-#         "form": form
-#     }
-#
-#     return render(request, "posts/dashboards.html", context)
+def dashboard(request):
+    form = SearchBarForm(request.GET)
+    posts = Post.objects.all()
+
+    if request.method == "GET":
+        if form.is_valid():
+            cleaned_post = form.cleaned_data["post"]
+            posts = Post.objects.filter(title__icontains=cleaned_post)
+
+    context = {
+        "posts": posts,
+        "form": form
+    }
+
+    return render(request, "posts/dashboards.html", context)
 
 
 # def create_post(request):
@@ -84,7 +84,6 @@ class CreatePost(CreateView):
 
 
 def details(request, pk):
-
     post = Post.objects.get(id=pk)
 
     if request.method == "GET":

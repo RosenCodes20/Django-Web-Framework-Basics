@@ -9,7 +9,7 @@ def content_length_validator(value):
 
 def check_author_name(value):
 
-    if "Rosen" in value or "Ioan" in value:
+    if "Ioan" in value:
         raise ValidationError(f"{value} is banned from posting!!")
 
 
