@@ -20,8 +20,15 @@
         <div class="posts">
         {% for post in posts %}
             <div class="post">
-                <h2>Post Title: {{ post.title|capfirst|truncatechars:10 }}</h2>
+                <h2>Post Title: {{ post.title|capfirst|truncatechars:10 }}
+                {% if "posts.can_approve_posts" in request.user.get_group_permissions and not post.approved %}
+                    
+                    <a href="{% url 'approve-post' post.pk %}"><i class="ai-check"></i></a>
+                    
+                {% endif %}
                 
+                </h2>
+            
                 {% if post.content %}
                     <h2>{{ post.content }}</h2>
                 

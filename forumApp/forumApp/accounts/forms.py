@@ -7,4 +7,8 @@ class RegisterBaseForm(UserCreationForm):
 
     class Meta:
         model = CustomUserModel
-        fields = ("username", "email")
+        fields = ("first_name", "last_name" ,"username", "email")
+
+        help_texts = {
+            "username": ""
+        }
