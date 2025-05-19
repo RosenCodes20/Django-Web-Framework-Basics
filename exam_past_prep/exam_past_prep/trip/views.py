@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
 from exam_past_prep.traveler.models import Traveler
-from exam_past_prep.trip.forms import CreateTrip
+from exam_past_prep.trip.forms import CreateTrip, EditTrip, DeleteTrip
+from exam_past_prep.trip.models import Trip
 
 
 def create(request):
@@ -25,10 +26,46 @@ def create(request):
     return render(request, 'create-trip.html', context)
 
 def trip_details(request, pk):
-    return render(request, 'details-trip.html')
+    trip = Trip.objects.get(id=pk)
+    travelers = Traveler.objects.all()
+
+    context = {
+        'trip': trip,
+        'travelers': travelers
+    }
+
+    return render(request, 'details-trip.html', context)
 
 def trip_edit(request, pk):
-    return render(request, 'edit-trip.html')
+    trip = Trip.objects.get(id=pk)
+    travelers = Traveler.objects.all()
+    form = EditTrip(request.POST or None, instance=trip)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('all-trips')
+
+    context = {
+        'trip': trip,
+        'form': form,
+        'travelers': travelers
+    }
+    return render(request, 'edit-trip.html', context)
 
 def trip_delete(request, pk):
-    return render(request, 'delete-trip.html')
+    trip = Trip.objects.get(id=pk)
+    travelers = Traveler.objects.all()
+    form = DeleteTrip(request.POST or None, instance=trip)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            trip.delete()
+            return redirect('all-trips')
+
+    context = {
+        'trip': trip,
+        'form': form,
+        'travelers': travelers
+    }
+    return render(request, 'delete-trip.html', context)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from exam_past_prep.traveler.forms import CreateTravelerForm
+from exam_past_prep.traveler.forms import CreateTravelerForm, EditTraveler
 from exam_past_prep.traveler.models import Traveler
 
 
@@ -21,11 +21,44 @@ def create_traveler(request):
     return render(request, 'create-traveler.html', context)
 
 def traveler_details(request):
+    traveler = Traveler.objects.first()
+    travelers = Traveler.objects.all()
 
-    return render(request, 'details-traveler.html')
+    context = {
+        'traveler': traveler,
+        'travelers': travelers
+    }
+
+    return render(request, 'details-traveler.html', context)
 
 def traveler_edit(request):
-    return render(request, 'edit-traveler.html')
+    traveler = Traveler.objects.first()
+    travelers = Traveler.objects.all()
+    form = EditTraveler(request.POST or None, instance=traveler)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('details-traveler')
+
+    context = {
+        'form': form,
+        'travelers': travelers
+    }
+
+    return render(request, 'edit-traveler.html', context)
 
 def traveler_delete(request):
-    return render(request, 'delete-traveler.html')
+    travelers = Traveler.objects.all()
+    traveler = Traveler.objects.last()
+
+    if request.method == "POST":
+        traveler.delete()
+        return redirect('index')
+
+    context = {
+        'traveler': traveler,
+        'travelers': travelers
+    }
+
+    return render(request, 'delete-traveler.html', context)

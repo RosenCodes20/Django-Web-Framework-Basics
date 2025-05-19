@@ -8,8 +8,8 @@
                 <div class="form">
                     <h1>Do you like to delete your Traveler's Profile?</h1>
                     <!-- Delete Traveler's Profile Form -->
-                    <form id='delete' class="register-form" method="" action="">
-
+                    <form id='delete' class="register-form" method="post" action="{% url 'delete-traveler' %}">
+                        {% csrf_token %}
                         <!-- Confirm Button -->
                         <button type="submit">Yes</button>
 

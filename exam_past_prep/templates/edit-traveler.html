@@ -8,41 +8,9 @@
             <section id="register">
                 <div class="form">
                     <h2>Edit Traveler's Profile</h2>
-                    <form class="register-form" method="" action="">
-                        <div>
-                            <label for="id_nickname">Nickname:</label>
-
-                            <div class="helptext" id="id_nickname_helptext">*Nicknames can contain only letters and
-                                digits.</div>
-
-                            <input type="text" name="nickname" value="MyNickname" maxlength="30" required
-                                aria-describedby="id_nickname_helptext" id="id_nickname">
-
-                        </div>
-
-                        <div>
-                            <label for="id_email">Email:</label>
-
-                            <input type="email" name="email" value="test@test.com" maxlength="30" required
-                                id="id_email">
-
-                        </div>
-
-                        <div>
-                            <label for="id_country">Country:</label>
-
-                            <input type="text" name="country" value="BGR" maxlength="3" required id="id_country">
-
-                        </div>
-
-                        <div>
-                            <label for="id_about_me">About me:</label>
-
-                            <textarea name="about_me" cols="40" rows="10" id="id_about_me">I’ve got a soft spot for sunrises on mountaintops and sunsets by the ocean. Traveling fuels my creativity and keeps me grounded at the same time. Always planning my next escape!
-                            </textarea>
-
-                        </div>
-
+                    <form class="register-form" method="post" action="{% url 'edit-traveler' %}">
+                       {{ form }}
+                        {% csrf_token %}
                         <button type="submit">Edit</button>
 
                     </form>

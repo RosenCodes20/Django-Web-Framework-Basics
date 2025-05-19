@@ -8,36 +8,33 @@
                     <h2>Trip Details</h2>
 
                     <!-- trip image if there is such, otherwise display the default one -->
-                    <img src="https://cdn.pixabay.com/photo/2021/10/05/16/53/kimono-6683245_1280.jpg"
-                        alt="Kyoto, Japan img" />
+                    <img src="{{ trip.image_url }}"
+                        alt="{{ trip.destination }} img" />
 
                     <!-- trip destination -->
-                    <p id="details-title">Kyoto, Japan</p>
+                    <p id="details-title">{{ trip.destination }}</p>
 
                     <div id="info-wrapper">
                         <div id="details-description">
 
                             <!-- trip start date in format "D d M Y" -->
                             <p class="description">
-                                Thu 17 Oct 2024
+                                {{ trip.start_date|date:'D d M Y' }}
                             </p>
                             <!-- trip duration -->
                             <p>
-                                5 day/s
+                                {{ trip.duration }} day/s
                             </p>
                             <!-- trip summary -->
                             <p>
-                                Wandering through Kyoto felt like stepping into a storybook. I got lost beneath the
-                                thousands of red torii gates at Fushimi Inari, and sipping matcha by the peaceful
-                                Kinkaku-ji (Golden Pavilion) was pure serenity. Don’t miss a stroll along the
-                                Philosopher’s Path during cherry blossom season—truly magical!
+                                {{ trip.summary }}
                             </p>
                         </div>
 
                         <!--Edit and Delete buttons -->
                         <div id="action-buttons">
-                            <a href="#" id="edit-btn">Edit</a>
-                            <a href="#" id="delete-btn">Delete</a>
+                            <a href="{% url 'trip-edit' trip.pk %}" id="edit-btn">Edit</a>
+                            <a href="{% url 'trip-delete' trip.pk %}" id="delete-btn">Delete</a>
                         </div>
                     </div>
                 </div>

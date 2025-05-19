@@ -24,3 +24,13 @@ class TripBaseForm(forms.ModelForm):
 
 class CreateTrip(TripBaseForm):
     pass
+
+class EditTrip(TripBaseForm):
+    pass
+
+class DeleteTrip(TripBaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields:
+            self.fields[field].widget.attrs['readonly'] = "readonly"

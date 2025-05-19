@@ -26,7 +26,7 @@
                     <!-- trip destination -->
                     <h3 class="title">{{ trip.destination }}</h3>
                     <!-- trip start date in format "D d M Y" -->
-                    <p class="description">{{ trip.start_date }}</p>
+                    <p class="description">{{ trip.start_date|date:'D d M Y' }}</p>
                     <!-- trip details button -->
                     <a class="details-btn" href="{% url 'trip-details' trip.pk %}">Details</a>
                 </div>
